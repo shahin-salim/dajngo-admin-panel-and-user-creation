@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% block content %}
+
+
+<div class="d-flex align-items-center" style="height: 100vh;">
+    <section class="container w-25">
+        <h1 class="text-center">Login</h1>
+        {% load crispy_forms_tags %}
+
+        <h1>{{err}}</h1>
+
+        <form action="/" method="post" class="mb-3" novalidate>
+            {% csrf_token %}
+            {{form|crispy}}
+            <button type="submit" class="btn bg-primary text-light w-100">submit</button>
+        </form>
+        <a href="/register" class="text-light" style="text-decoration: none;"><button class="btn bg-primary text-light w-100">Create new account</button></a>
+    </section>
+
+</div>
+
+{% endblock %}
