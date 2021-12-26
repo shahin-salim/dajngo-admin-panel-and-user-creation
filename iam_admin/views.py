@@ -1,6 +1,7 @@
+from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-from createform.forms import UserRegisterForm
 
 # Create your views here.
 
@@ -10,17 +11,41 @@ def home(request):
 
 def update(request):
 
+
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            pass
+        id = request.POST['id']
+        row = User.objects.get(id=id)
+        row.first_name = request.POST['first_name'].strip()
+        row.last_name = request.POST['last_name'].strip()
+        row.username = request.POST['username'].strip()
+        row.email = request.POST['email'].strip()
+        if request.POST['password1'].strip() != '':
+            row.password = make_password(request.POST['password1'].strip())
+        row.save()
+        return redirect('/adminpanel')
+
 
     else:
-        form = UserRegisterForm()
-        data = User.objects.get(id=request.GET['id'])
-    return render(request, 'register.html', {'url':'/adminpanel/update', 'form': form, 'is_update': True, 'data': data})
+        id = request.GET['id']
+        row = User.objects.get(id=id)
+        
+    return render(request, 'update.html', {'row': row})
 
 
 def delete(request):
-    pass
+    User.objects.filter(id=request.GET['id']).delete()
+    return redirect('/adminpanel')
+
+def block(request):
+    ins = User.objects.get(id=request.GET['id'])
+    if ins.blockUser:
+        ins.blockUser = 0
+    else:
+        ins.blockUser = 1
+    ins.save()
+    return redirect('/adminpanel')
+
+
+
+
 

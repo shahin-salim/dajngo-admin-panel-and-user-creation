@@ -32,6 +32,7 @@
                     <th scope="col">last name</th>
                     <th scope="col">username</th>
                     <th scope="col">email</th>
+                    <th scope="col">block user</th>
                     <th scope="col">update</th>
                     <th scope="col">delete</th>
                 </tr>
@@ -48,16 +49,30 @@
                     <td>{{i.email}}</td>
 
                     <td>
-                        <form action="/adminpanel/update" >
-                            <button type="submit" class="btn bg-primary text-light" value="{{i.id}}" name="id">update</button>
+                        <form action="/adminpanel/block">
+                            <button type="submit" class="btn bg-danger text-light" value="{{i.id}}" name="id">
+                                {% if blockUser %}
+                                unblock
+                                {% else %}
+                                block
+                                {% endif %}
+                            </button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form action="/adminpanel/update">
+                            <button type="submit" class="btn bg-primary text-light" value="{{i.id}}"
+                                name="id">update</button>
                         </form>
                     </td>
                     <td>
-                        <form action="/adminpanel/delete" >
-                            <button type="submit" class="btn bg-danger text-light" value="{{i.id}}" name="id">delete</button>
+                        <form action="/adminpanel/delete">
+                            <button type="submit" class="btn bg-danger text-light" value="{{i.id}}"
+                                name="id">delete</button>
                         </form>
                     </td>
-                    
+
                 </tr>
 
                 {% endif %}

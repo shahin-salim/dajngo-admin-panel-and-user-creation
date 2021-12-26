@@ -5,11 +5,8 @@
 
 <section class="container">
     
-    {% if is_update %}
-    <h1 class="text-center text-primary">create user</h1>
-    {% else %}
+
     <h1 class="text-center text-primary">sign up</h1>
-    {% endif %}
 
     <form method="POST" action="{{url}}" novalidate>
         {% csrf_token %}
@@ -20,10 +17,8 @@
 
     </form>
 
-    {% if not is_update %}
     <a href="/" class="text-light" style="text-decoration: none;"><button
             class="btn btn-outline-info w-100 mt-1  ">login</button></a>
-    {% endif %}
 
 </section>
 
