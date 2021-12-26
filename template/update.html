@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<section class="container">
+    <h1>add suer</h1>
+
+    <form action="/adminpanel/update" method="post">
+
+        {% csrf_token %}
+        <input type="text" name="id"  value={{row.id}} hidden>
+    
+        <div class="form-group" >
+            <label for="exampleInputEmail1">first name</label>
+            <input type="text" class="form-control" name="first_name"  value="{{row.first_name}}" required>
+        </div>
+        <div class="form-group">
+            <label >last name</label>
+            <input type="text" class="form-control" name="last_name" value="{{row.last_name}}" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">username</label>
+            <input type="text" class="form-control" name="username"   value="{{row.username}}" required>
+        </div>
+        <div class="form-group">
+            <label >email</label>
+            <input type="text" class="form-control" name="email" value="{{row.email}}" required>
+        </div>
+        <div class="form-group">
+            <label >password</label>
+            <input type="text" class="form-control" name="password1" value="{{row.password1}}"  >
+        </div>
+    
+    
+        <button type="submit" class="btn btn-primary" >Submit</button>
+    
+    </form>
+
+</section>
+
+
+{%  endblock  %}
+
