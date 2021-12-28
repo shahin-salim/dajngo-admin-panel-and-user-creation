@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'createform',
     'crispy_forms',
+    'iam_admin.apps.IamAdminConfig'
 ]
 
 MIDDLEWARE = [

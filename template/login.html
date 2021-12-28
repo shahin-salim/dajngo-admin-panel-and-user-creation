@@ -7,14 +7,17 @@
         <h1 class="text-center">Login</h1>
         {% load crispy_forms_tags %}
 
-        <h1>{{err}}</h1>
+        <p id="" class="text-danger"><strong>{{err}}</strong></p>
+        
 
         <form action="/" method="post" class="mb-3" novalidate>
             {% csrf_token %}
             {{form|crispy}}
-            <button type="submit" class="btn bg-primary text-light w-100">submit</button>
+            <button type="submit" class="btn bg-primary text-light w-100">Submit</button>
         </form>
         <a href="/register" class="text-light" style="text-decoration: none;"><button class="btn bg-primary text-light w-100">Create new account</button></a>
+        <a href="/adminpanel" class="text-light" style="text-decoration: none;"><button class="btn bg-primary text-light w-100 mt-3">Go for admin</button></a>
+
     </section>
 
 </div>

@@ -3,6 +3,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import UserRegisterForm, loginform
 from django.contrib.auth import authenticate
+from django.views.decorators.cache import never_cache
 
 def register(request):
     if request.method == 'POST':
@@ -15,9 +16,13 @@ def register(request):
     return render(request, 'register.html', {'form': form, 'url': '/register'})
 
 def login(request):
+    if 'user' in request.session:
+        return redirect('/home')
     if request.method == 'POST':
+        
         form = loginform(request.POST)
         if form.is_valid():
+
             name = request.POST['username']
             pwd = request.POST['password']
 
@@ -25,9 +30,11 @@ def login(request):
             if user is not None:
                 a = User.objects.get(username=name)
                 if a.is_superuser:
+                    request.session['admin'] = request.POST['username']
                     return redirect('/adminpanel')
                 else:
-                    return render(request, 'home.html')
+                    request.session['user'] = request.POST['username']
+                    return redirect('/home')
             else:
                 return render(request, 'login.html', {'form': form, 'err': 'user not found'})
 
@@ -35,3 +42,13 @@ def login(request):
         form = loginform()
     return render(request, 'login.html', {'form': form})
 
+@never_cache
+def home(request):
+    if request.session.has_key('user'):
+        return render(request, 'home.html')
+    return redirect('/')
+
+def logout(request):
+    if request.session.has_key('user'):
+        del request.session['user']
+    return redirect('/')
