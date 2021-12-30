@@ -3,31 +3,35 @@
 {% load crispy_forms_tags %}
 
 
-<section class="container">
+<section class="">
 
 
-    {% if is_createuser  %}
+    {% if is_createuser %}
     <h1 class="text-center text-primary">Create User</h1>
     {% else %}
     <h1 class="text-center text-primary">Sign Up</h1>
     {% endif %}
 
-    <form method="POST" action="{{url}}" novalidate>
-        {% csrf_token %}
-        {{ form|crispy }}
-        <div class="form-group d-flex justify-content-center">
-            <button class="btn btn-outline-info w-100 mt-1" type="submit">Register</button>
+    <div class="d-flex justify-content-center">
+        <div class=" w-50 ">
+            <form method="POST" action="{{url}}" novalidate>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="form-group d-flex justify-content-center">
+                    <button class="btn btn-outline-info w-100 mt-1" type="submit">Register</button>
+                </div>
+
+            </form>
         </div>
+    </div>
 
-    </form>
-
-    {% if not is_createuser %}
-    <a href="/" class="text-light" style="text-decoration: none;"><button
-            class="btn btn-outline-info w-100 mt-1  ">login</button></a>
-    {% else %}
-    <a href="/adminpanel" class="text-light" style="text-decoration: none;"><button
-        class="btn btn-outline-info w-100 mt-1  ">cancel</button></a>
-    {% endif %}
+        {% if not is_createuser %}
+        <a href="/" class="text-light d-flex justify-content-center" style="text-decoration: none;"><button
+                class="btn btn-outline-info  mt-1  w-50">login</button></a>
+        {% else %}
+        <a href="/adminpanel" class="text-light  d-flex justify-content-center " style="text-decoration: none;"><button
+                class="btn btn-outline-info  mt-1 w-50 ">cancel</button></a>
+        {% endif %}
 
 
 </section>
